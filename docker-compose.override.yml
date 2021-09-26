@@ -2,13 +2,12 @@ version: '3.4'
 
 services:
   urlshortner.api:
-    container_name: "urlshortner_app"
+    container_name: "urlshortner.app"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "80"
-      - "443"
+      - 5000:80
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -18,20 +17,20 @@ services:
       - urlshortner.rabbitmq
 
   urlshortner.db:
-    container_name: "urlshortner_db"
+    container_name: "urlshortner.db"
     restart: always
     ports:
       - "27017:27017"
 
   urlshortner.redis:
-    container_name: "urlshortner_cache"
+    container_name: "urlshortner.cache"
     image: redis
     restart: always
     ports:
       - "6379:6379"
 
   urlshortner.rabbitmq:
-    container_name: "urlshortner_rabbitmq"
+    container_name: "urlshortner.rabbitmq"
     restart: always
     ports:
     - "5672:5672"
