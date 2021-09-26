@@ -1,0 +1,13 @@
+﻿[*.cs]
+
+# API1001: Action returns undeclared success result.
+dotnet_diagnostic.API1001.severity = warning
+
+# API1000: Action returns undeclared status code.
+dotnet_diagnostic.API1000.severity = warning
+
+# API1002: Action documents status code that is not returned.
+dotnet_diagnostic.API1002.severity = warning
+
+# API1003: Action methods on ApiController instances do not require explicit model validation check.
+dotnet_diagnostic.API1003.severity = warning

@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  urlshortner.api:
+    image: ${DOCKER_REGISTRY-}urlshortnerapi
+    build:
+      context: .
+      dockerfile: src/URLShortner.API/Dockerfile
+
+  urlshortner.db:
+    image: mongo
+
+  urlshortner.redis:
+    image: redis
+
+  urlshortner.rabbitmq:
+    image: rabbitmq:3-management-alpine

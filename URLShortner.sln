@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31710.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4444D9C3-9A1F-468C-AD57-7BA51121C11E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{057F412E-B1B4-44A5-AB06-AB5D190C22E6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLShortner.Application", "src\URLShortner.Application\URLShortner.Application.csproj", "{0758A836-E984-43B0-9DF1-CB716EABD760}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLShortner.Domain", "src\URLShortner.Domain\URLShortner.Domain.csproj", "{5EC98559-8EA0-401D-9FEF-5030DE0B0408}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLShortner.Infrastructure", "src\URLShortner.Infrastructure\URLShortner.Infrastructure.csproj", "{D4935766-C7A6-4209-80C9-D03EE6A9F989}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortner.API", "src\URLShortner.API\URLShortner.API.csproj", "{68B58498-34D1-45A8-9E43-E87F2C83EFA0}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{6FA7585B-0643-478E-87F9-019704D4CD56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1ACC133E-032F-4D98-B4B1-E336DF147661}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0758A836-E984-43B0-9DF1-CB716EABD760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0758A836-E984-43B0-9DF1-CB716EABD760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0758A836-E984-43B0-9DF1-CB716EABD760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0758A836-E984-43B0-9DF1-CB716EABD760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC98559-8EA0-401D-9FEF-5030DE0B0408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC98559-8EA0-401D-9FEF-5030DE0B0408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC98559-8EA0-401D-9FEF-5030DE0B0408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC98559-8EA0-401D-9FEF-5030DE0B0408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4935766-C7A6-4209-80C9-D03EE6A9F989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4935766-C7A6-4209-80C9-D03EE6A9F989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4935766-C7A6-4209-80C9-D03EE6A9F989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4935766-C7A6-4209-80C9-D03EE6A9F989}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B58498-34D1-45A8-9E43-E87F2C83EFA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B58498-34D1-45A8-9E43-E87F2C83EFA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B58498-34D1-45A8-9E43-E87F2C83EFA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B58498-34D1-45A8-9E43-E87F2C83EFA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA7585B-0643-478E-87F9-019704D4CD56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA7585B-0643-478E-87F9-019704D4CD56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA7585B-0643-478E-87F9-019704D4CD56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA7585B-0643-478E-87F9-019704D4CD56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0758A836-E984-43B0-9DF1-CB716EABD760} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
+		{5EC98559-8EA0-401D-9FEF-5030DE0B0408} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
+		{D4935766-C7A6-4209-80C9-D03EE6A9F989} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
+		{68B58498-34D1-45A8-9E43-E87F2C83EFA0} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA3DB800-88F8-4DA4-AA32-8F063E16C86B}
+	EndGlobalSection
+EndGlobal
