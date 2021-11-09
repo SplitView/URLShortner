@@ -33,7 +33,6 @@ namespace URLShortner.API.Controllers
         public async Task<ActionResult<CustomUrlViewModel>> GenerateUrl(GenerateCommand command)
         {
             var result = await _mediator.Send(command);
-
             return Ok(result);
         }
 

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLShortner.Domain", "src\U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLShortner.Infrastructure", "src\URLShortner.Infrastructure\URLShortner.Infrastructure.csproj", "{D4935766-C7A6-4209-80C9-D03EE6A9F989}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortner.API", "src\URLShortner.API\URLShortner.API.csproj", "{68B58498-34D1-45A8-9E43-E87F2C83EFA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLShortner.API", "src\URLShortner.API\URLShortner.API.csproj", "{68B58498-34D1-45A8-9E43-E87F2C83EFA0}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{6FA7585B-0643-478E-87F9-019704D4CD56}"
 EndProject
@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.URLShortner.API", "tests\Test.URLShortner.API\Test.URLShortner.API.csproj", "{B7CCC6EF-46FA-492D-A9B6-573E60AA70E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{6FA7585B-0643-478E-87F9-019704D4CD56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FA7585B-0643-478E-87F9-019704D4CD56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FA7585B-0643-478E-87F9-019704D4CD56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7CCC6EF-46FA-492D-A9B6-573E60AA70E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7CCC6EF-46FA-492D-A9B6-573E60AA70E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7CCC6EF-46FA-492D-A9B6-573E60AA70E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7CCC6EF-46FA-492D-A9B6-573E60AA70E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{5EC98559-8EA0-401D-9FEF-5030DE0B0408} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
 		{D4935766-C7A6-4209-80C9-D03EE6A9F989} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
 		{68B58498-34D1-45A8-9E43-E87F2C83EFA0} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
+		{B7CCC6EF-46FA-492D-A9B6-573E60AA70E0} = {057F412E-B1B4-44A5-AB06-AB5D190C22E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA3DB800-88F8-4DA4-AA32-8F063E16C86B}
