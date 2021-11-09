@@ -2,7 +2,7 @@
 using MassTransit;
 
 using MediatR;
-
+using System;
 using System.Threading.Tasks;
 
 using URLShortner.Application.CustomURL.ViewModels;
@@ -10,25 +10,28 @@ using URLShortner.Application.Redirection;
 
 namespace URLShortner.Application.Events
 {
-    public class UrlRedirectedEvent : EventBase
+    public class UrlRedirectedEvent
     {
+        public Guid Id { get; private set; }
+        public DateTime TimeStamp { get; private set; }
         public string CustomUrlId { get; set; }
         public UrlRedirectedEvent()
         {
-
         }
 
-        public UrlRedirectedEvent(CustomUrlViewModel customUrlViewModel) : base()
+        public UrlRedirectedEvent(CustomUrlViewModel customUrlViewModel)
         {
+            Id = Guid.NewGuid();
+            TimeStamp = DateTime.UtcNow;
             CustomUrlId = customUrlViewModel.Id;
         }
     }
 
-    public class UrlRedirectedEventHandler : IConsumer<UrlRedirectedEvent>
+    public class UrlRedirectedConsumer : IConsumer<UrlRedirectedEvent>
     {
         private readonly IMediator _mediator;
 
-        public UrlRedirectedEventHandler(IMediator mediator)
+        public UrlRedirectedConsumer(IMediator mediator)
         {
             _mediator = mediator;
         }

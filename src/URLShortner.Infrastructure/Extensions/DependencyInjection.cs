@@ -29,14 +29,14 @@ namespace URLShortner.Infrastructure.Extensions
             //rabbitmq
             services.AddMassTransit(config =>
             {
-                config.AddConsumer<UrlRedirectedEventHandler>();
+                config.AddConsumer<UrlRedirectedConsumer>();
                 config.UsingRabbitMq((ctx, cfg) =>
                 {
                     cfg.Host(configuration["RabbitMq:ConnectionString"]);
 
                     cfg.ReceiveEndpoint("url-redirected-queue", c =>
                     {
-                        c.ConfigureConsumer<UrlRedirectedEventHandler>(ctx);
+                        c.Consumer<UrlRedirectedConsumer>(ctx);
                     });
                 });
             });
