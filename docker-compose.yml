@@ -7,11 +7,28 @@ services:
       context: .
       dockerfile: src/URLShortner.API/Dockerfile
 
-  urlshortner.db:
+  urlshortner.mongo:
     image: mongo
+
+  urlshortner.sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
 
   urlshortner.redis:
     image: redis
 
   urlshortner.rabbitmq:
     image: rabbitmq:3-management-alpine
+    
+  redirectlog.api:
+    image: ${DOCKER_REGISTRY-}redirectlogapi
+    build:
+      context: .
+      dockerfile: src/services/RedirectLog/RedirectLog.API/Dockerfile
+
+
+  shortner.api:
+    image: ${DOCKER_REGISTRY-}shortnerapi
+    build:
+      context: .
+      dockerfile: src/services/Shortner/Shortner.API/Dockerfile
+

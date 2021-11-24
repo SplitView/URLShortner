@@ -8,30 +8,70 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
       - 5000:80
+      - 8000:443
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
-      - urlshortner.db
+      - urlshortner.mongo
       - urlshortner.redis
       - urlshortner.rabbitmq
 
-  urlshortner.db:
-    container_name: "urlshortner.db"
+  urlshortner.mongo:
+    container_name: "urlshortner.mongo"
     restart: always
     ports:
       - "27017:27017"
+
+  urlshortner.sqlserver:
+    container_name: "urlshortner.sqlserver"
+    restart: always
+    ports:
+      - 1433:1433
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Admin@123" 
 
   urlshortner.redis:
     container_name: "urlshortner.cache"
     image: redis
     restart: always
     ports:
-      - "6379:6379"
+      - 6379:6379
 
   urlshortner.rabbitmq:
     container_name: "urlshortner.rabbitmq"
     restart: always
     ports:
-    - "5672:5672"
-    - "15672:15672"
+    - 5672:5672
+    - 15672:15672
+
+  redirectlog.api:
+    container_name: "redirectlog.api"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - 5001:80
+      - 8001:443
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - urlshortner.sqlserver
+      - urlshortner.rabbitmq
+
+  shortner.api:
+    container_name: "shortner.api"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - 5002:80
+      - 8002:443
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - urlshortner.mongo
+      - urlshortner.rabbitmq

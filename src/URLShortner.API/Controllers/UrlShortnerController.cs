@@ -35,18 +35,5 @@ namespace URLShortner.API.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
-
-        /// <summary>
-        /// Get the count and timestamps of rediecrion according to given key
-        /// </summary>
-        /// <param name="uniqueKey"></param>
-        /// <returns></returns>
-        [HttpGet("{uniqueKey}")]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<RedirectionViewModel>> GetRedirections(string uniqueKey)
-        {
-            var result = await _mediator.Send(new GetRedirectionsQuery(uniqueKey));
-            return Ok(result);
-        }
     }
 }
