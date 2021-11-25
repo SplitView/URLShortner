@@ -30,15 +30,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shortner", "Shortner", "{53
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RedirectLog", "RedirectLog", "{233A4849-D0A2-4B40-AF45-290532622CAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedirectLog.API", "src\services\RedirectLog\RedirectLog.API\RedirectLog.API.csproj", "{B0D3275C-4B97-4DDA-AB4D-847BB686B8DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedirectLog.API", "src\services\RedirectLog\RedirectLog.API\RedirectLog.API.csproj", "{B0D3275C-4B97-4DDA-AB4D-847BB686B8DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shortner.API", "src\services\Shortner\Shortner.API\Shortner.API.csproj", "{B6DB57AD-C87D-4390-81D7-411A39B5BBDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedirectLog.Domain", "src\services\RedirectLog\RedirectLog.Domain\RedirectLog.Domain.csproj", "{05B59AC2-8699-4455-B0EA-178FF7B62DB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedirectLog.Domain", "src\services\RedirectLog\RedirectLog.Domain\RedirectLog.Domain.csproj", "{05B59AC2-8699-4455-B0EA-178FF7B62DB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedirectLog.Application", "src\services\RedirectLog\RedirectLog.Application\RedirectLog.Application.csproj", "{D1D16454-DA01-4D89-A03B-DD4577A8D35E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedirectLog.Application", "src\services\RedirectLog\RedirectLog.Application\RedirectLog.Application.csproj", "{D1D16454-DA01-4D89-A03B-DD4577A8D35E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedirectLog.Infrastructure", "src\services\RedirectLog\RedirectLog.Infrastructure\RedirectLog.Infrastructure.csproj", "{49FB90FB-65CE-4CEF-92F1-7B1D5BFCF350}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedirectLog.Infrastructure", "src\services\RedirectLog\RedirectLog.Infrastructure\RedirectLog.Infrastructure.csproj", "{49FB90FB-65CE-4CEF-92F1-7B1D5BFCF350}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortner.Common", "src\URLShortner.Common\URLShortner.Common.csproj", "{BF27CD26-E08A-47F7-8230-F5562AB2B583}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,6 +92,10 @@ Global
 		{49FB90FB-65CE-4CEF-92F1-7B1D5BFCF350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49FB90FB-65CE-4CEF-92F1-7B1D5BFCF350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49FB90FB-65CE-4CEF-92F1-7B1D5BFCF350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF27CD26-E08A-47F7-8230-F5562AB2B583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF27CD26-E08A-47F7-8230-F5562AB2B583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF27CD26-E08A-47F7-8230-F5562AB2B583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF27CD26-E08A-47F7-8230-F5562AB2B583}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +114,7 @@ Global
 		{05B59AC2-8699-4455-B0EA-178FF7B62DB6} = {233A4849-D0A2-4B40-AF45-290532622CAF}
 		{D1D16454-DA01-4D89-A03B-DD4577A8D35E} = {233A4849-D0A2-4B40-AF45-290532622CAF}
 		{49FB90FB-65CE-4CEF-92F1-7B1D5BFCF350} = {233A4849-D0A2-4B40-AF45-290532622CAF}
+		{BF27CD26-E08A-47F7-8230-F5562AB2B583} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA3DB800-88F8-4DA4-AA32-8F063E16C86B}

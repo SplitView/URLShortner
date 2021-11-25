@@ -1,8 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GreenPipes;
+using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RedirectLog.Application.Common.Interface;
+using RedirectLog.Application.Consumers;
 using RedirectLog.Infrastructure.Persistence;
+using URLShortner.Common;
 
 namespace RedirectLog.Infrastructure.Extensions
 {
@@ -21,21 +25,32 @@ namespace RedirectLog.Infrastructure.Extensions
             services.AddScoped<IRedirectLogContext>(provider => provider.GetRequiredService<RedirectLogContext>());
 
             //rabbitmq
-            //services.AddMassTransit(config =>
-            //{
-            //    config.AddConsumer<UrlRedirectedConsumer>();
-            //    config.UsingRabbitMq((ctx, cfg) =>
-            //    {
-            //        cfg.Host(configuration["RabbitMq:ConnectionString"]);
+            services.AddMassTransit(config =>
+            {
+                config.AddConsumer<CustomUrlCreatedConsumer>();
+                config.AddConsumer<UrlRedirectedConsumer>();
 
-            //        cfg.ReceiveEndpoint("url-redirected-queue", c =>
-            //        {
-            //            c.Consumer<UrlRedirectedConsumer>(ctx);
-            //        });
-            //    });
-            //});
-            //services.AddMassTransitHostedService();
-            //services.AddScoped<IEventService, EventService>();
+                config.SetKebabCaseEndpointNameFormatter();
+
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(configuration["RabbitMq:ConnectionString"]);
+
+                    cfg.ReceiveEndpoint(Constants.QueueEndpoints.URL_REDIRECTED, c =>
+                    {
+                        c.UseMessageRetry(r => r.Interval(2, 100));
+                        c.ConfigureConsumer<UrlRedirectedConsumer>(ctx);
+                    });
+
+                    cfg.ReceiveEndpoint(Constants.QueueEndpoints.CUSTOM_URL_CREATED, c =>
+                    {
+                        c.UseMessageRetry(r => r.Interval(2, 100));
+                        c.ConfigureConsumer<CustomUrlCreatedConsumer>(ctx);
+                    });
+                });
+            });
+
+            services.AddMassTransitHostedService();
 
             return services;
         }

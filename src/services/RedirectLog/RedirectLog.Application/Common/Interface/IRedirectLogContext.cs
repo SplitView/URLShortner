@@ -7,5 +7,6 @@ namespace RedirectLog.Application.Common.Interface
     {
         DbSet<CustomUrl> CustomUrls { get; set; }
         DbSet<Redirection> Redirections { get; set; }
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
