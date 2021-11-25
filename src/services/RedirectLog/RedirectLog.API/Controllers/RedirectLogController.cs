@@ -4,6 +4,8 @@ using RedirectLog.Application.RedirectLog;
 
 namespace RedirectLog.API.Controllers
 {
+    [ApiController]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class RedirectLogController : Controller
     {
         private readonly IMediator _mediator;
