@@ -1,12 +1,6 @@
 version: '3.4'
 
 services:
-  urlshortner.api:
-    image: ${DOCKER_REGISTRY-}urlshortnerapi
-    build:
-      context: .
-      dockerfile: src/URLShortner.API/Dockerfile
-
   urlshortner.mongo:
     image: mongo
 
@@ -31,4 +25,9 @@ services:
     build:
       context: .
       dockerfile: src/services/Shortner/Shortner.API/Dockerfile
+  web.gateway:
+    image: ${DOCKER_REGISTRY-}webgateway
+    build:
+      context: .
+      dockerfile: src/Web.Gateway/Dockerfile
 

@@ -1,22 +1,6 @@
 version: '3.4'
 
 services:
-  urlshortner.api:
-    container_name: "urlshortner.app"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    ports:
-      - 5000:80
-      - 8000:443
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-    depends_on:
-      - urlshortner.mongo
-      - urlshortner.redis
-      - urlshortner.rabbitmq
-
   urlshortner.mongo:
     container_name: "urlshortner.mongo"
     restart: always
@@ -75,3 +59,13 @@ services:
     depends_on:
       - urlshortner.mongo
       - urlshortner.rabbitmq
+  web.gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
