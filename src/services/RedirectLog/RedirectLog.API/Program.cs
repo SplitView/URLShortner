@@ -5,8 +5,13 @@ using RedirectLog.Infrastructure.Persistence;
 using System.Reflection;
 using RedirectLog.Application.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
+using URLShortner.Common.Infrastructure.Logging;
+using Elastic.Apm.NetCoreAll;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog(SeriLogger.Configure);
+builder.Host.UseAllElasticApm();
 
 // Add services to the container.
 

@@ -1,13 +1,17 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Shortner.Application.Extensions;
 using Shortner.Infrastructure.Extensions;
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc;
+using URLShortner.Common.Infrastructure.Logging;
+using Elastic.Apm.NetCoreAll;
 
 var builder = WebApplication.CreateBuilder(args);
-
+//builder.Host.UseSerilog(SeriLogger.Configure);
 // Add services to the container.
+builder.Host.UseSerilog(SeriLogger.Configure);
+builder.Host.UseAllElasticApm();
 
 builder.Services.AddControllers();
 builder.Services.AddApiVersioning(config =>

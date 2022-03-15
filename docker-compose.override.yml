@@ -6,6 +6,8 @@ services:
     restart: always
     ports:
       - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
 
   urlshortner.sqlserver:
     container_name: "urlshortner.sqlserver"
@@ -29,6 +31,23 @@ services:
     ports:
     - 5672:5672
     - 15672:15672
+  elasticsearch:
+    container_name: elasticsearch
+    environment:
+        - discovery.type=single-node
+    ports:
+        - "9200:9200"
+    volumes:
+        - elasticsearch-data:/usr/share/elasticsearch/data   
+
+  kibana:
+    container_name: kibana
+    environment:        
+        - ELASTICSEARCH_HOSTS:'["http://elasticsearch:9200"]'
+    depends_on:
+        - elasticsearch
+    ports:
+        - "5601:5601" 
 
   redirectlog.api:
     container_name: "redirectlog.api"
@@ -59,13 +78,15 @@ services:
     depends_on:
       - urlshortner.mongo
       - urlshortner.rabbitmq
+
   web.gateway:
+    container_name: "web.gateway"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "80"
-      - "443"
+      - 5000:80
+      - 8000:443
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

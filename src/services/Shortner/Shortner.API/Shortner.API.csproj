@@ -12,6 +12,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.12.1" />
 		<PackageReference Include="MediatR" Version="9.0.0" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
@@ -21,6 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\URLShortner.Common.Infrastructure\URLShortner.Common.Infrastructure.csproj" />
 		<ProjectReference Include="..\Shortner.Application\Shortner.Application.csproj" />
 		<ProjectReference Include="..\Shortner.Infrastructure\Shortner.Infrastructure.csproj" />
 	</ItemGroup>

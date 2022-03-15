@@ -7,6 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 //// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 //builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
+builder.Host.ConfigureAppConfiguration((context, config) =>
+{
+    config.AddJsonFile("ocelot.json");
+});
+
 builder.Services.AddOcelot();
 
 var app = builder.Build();

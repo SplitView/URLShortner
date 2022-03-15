@@ -1,3 +1,33 @@
 {
-	
+	"Routes": [
+		{
+			"DownstreamPathTemplate": "/api/v1/shortner",
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "shortner.api",
+					"Port": 443
+				}
+			],
+			"UpstreamPathTemplate": "/shortner",
+			"UpstreamHttpMethod": [ "POST" ],
+			"DangerousAcceptAnyServerCertificateValidator": true
+		},
+		{
+			"DownstreamPathTemplate": "/api/v1/redirectionlog",
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "redirectlog.api",
+					"Port": 443
+				}
+			],
+			"UpstreamPathTemplate": "/redirectionlog",
+			"UpstreamHttpMethod": [ "GET" ],
+			"DangerousAcceptAnyServerCertificateValidator": true
+		}
+	],
+	"GlobalConfiguration": {
+		"DangerousAcceptAnyServerCertificateValidator": true
+	}
 }
