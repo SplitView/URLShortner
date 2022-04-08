@@ -1,16 +1,18 @@
+using Elastic.Apm.NetCoreAll;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Serilog;
+using URLShortner.Common.Infrastructure.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//// Add services to the container.
-//// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
 builder.Host.ConfigureAppConfiguration((context, config) =>
 {
     config.AddJsonFile("ocelot.json");
 });
+
+builder.Host.UseSerilog(SeriLogger.Configure);
+builder.Host.UseAllElasticApm();
 
 builder.Services.AddOcelot();
 

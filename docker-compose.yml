@@ -19,6 +19,9 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:7.15.2
 
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:7.15.2
+
   redirectlog.api:
     image: ${DOCKER_REGISTRY-}redirectlogapi
     build:
@@ -36,6 +39,12 @@ services:
     build:
       context: .
       dockerfile: src/Web.Gateway/Dockerfile
+
+  urlshortner.web:
+    image: ${DOCKER_REGISTRY-}web
+    build:
+      context: .
+      dockerfile: src/UrlShortner.Web/Dockerfile
 
 volumes:
   mongo_data:

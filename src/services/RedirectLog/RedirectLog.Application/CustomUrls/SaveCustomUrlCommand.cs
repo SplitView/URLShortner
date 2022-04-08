@@ -39,7 +39,7 @@ namespace RedirectLog.Application.CustomUrls
                 UniqueKey = request.UniqueKey
             };
 
-            await _redirectLogContext.CustomUrls.AddAsync(customUrl);
+            await _redirectLogContext.CustomUrls.AddAsync(customUrl,cancellationToken);
             await _redirectLogContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

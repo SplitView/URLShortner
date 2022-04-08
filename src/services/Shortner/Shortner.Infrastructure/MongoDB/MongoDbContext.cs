@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Elastic.Apm.MongoDb;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Shortner.Application.Interface;
 using Shortner.Domain.Entities;
@@ -12,7 +13,11 @@ namespace Shortner.Infrastructure.MongoDB
 
         public MongoDbContext(IOptions<MongoSettings> options)
         {
-            _mongoClient = new MongoClient(options.Value.ConnectionString);
+            var settings = MongoClientSettings.FromConnectionString(options.Value.ConnectionString);
+
+            settings.ClusterConfigurator = builder => builder.Subscribe(new MongoDbEventSubscriber());
+
+            _mongoClient = new MongoClient(settings);
             _mongoDatabase = _mongoClient.GetDatabase(options.Value.DatabaseName);
 
             CustomURLs = GetMongoCollection<CustomURL>(options.Value.CustomURLCollectionName);

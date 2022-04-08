@@ -14,7 +14,7 @@ namespace Shortner.Application.CustomUrl
         /// </summary>
         public string RedirectURL { get; set; }
 
-        public static CustomUrlViewModel FromModel(Domain.Entities.CustomURL customURL, IHttpContextAccessor httpContextAccessor)
+        public static CustomUrlViewModel FromModel(Domain.Entities.CustomURL customURL)
         {
             return new CustomUrlViewModel
             {
@@ -22,7 +22,7 @@ namespace Shortner.Application.CustomUrl
                 ExpiryDate = customURL.ExpiryDate,
                 UniqueKey = customURL.UniqueKey,
                 OriginalURL = customURL.OriginalURL,
-                RedirectURL = $"{httpContextAccessor.HttpContext.Request.Scheme}://{httpContextAccessor.HttpContext.Request.Host}/{customURL.UniqueKey}"
+                RedirectURL = string.Empty
             };
         }
     }

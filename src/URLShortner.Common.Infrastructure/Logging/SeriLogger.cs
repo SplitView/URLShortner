@@ -1,4 +1,5 @@
-﻿using Elastic.CommonSchema.Serilog;
+﻿using Elastic.Apm.SerilogEnricher;
+using Elastic.CommonSchema.Serilog;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -16,6 +17,7 @@ namespace URLShortner.Common.Infrastructure.Logging
 
                configuration
                     .Enrich.FromLogContext()
+                    .Enrich.WithElasticApmCorrelationInfo()
                     .Enrich.WithMachineName()
                     .Enrich.WithExceptionDetails()
                     .WriteTo.Debug()

@@ -1,6 +1,5 @@
 ﻿using MassTransit;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Shortner.Application.Exceptions;
@@ -24,17 +23,14 @@ namespace Shortner.Application.CustomUrl
     {
         private readonly IURLShortnerContext _uRLShortnerContext;
         private readonly IOptions<AppConfig> _appConfig;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPublishEndpoint _publishEndpoint;
 
         public GenerateCommandHandler(IURLShortnerContext uRLShortnerContext,
                                       IOptions<AppConfig> appConfig,
-                                      IHttpContextAccessor httpContextAccessor,
                                       IPublishEndpoint publishEndpoint)
         {
             _uRLShortnerContext = uRLShortnerContext;
             _appConfig = appConfig;
-            _httpContextAccessor = httpContextAccessor;
             _publishEndpoint = publishEndpoint;
         }
 
@@ -54,7 +50,7 @@ namespace Shortner.Application.CustomUrl
 
             await _publishEndpoint.Publish(new CustomUrlCreatedEvent(customUrl.Id, customUrl.OriginalURL, customUrl.UniqueKey, customUrl.ExpiryDate), cancellationToken);
 
-            return CustomUrlViewModel.FromModel(customUrl, _httpContextAccessor);
+            return CustomUrlViewModel.FromModel(customUrl);
         }
 
         private async Task<string> GetUniqueKey(GenerateCommand request, CancellationToken cancellationToken)

@@ -28,5 +28,17 @@ namespace Shortner.API.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Gets the redirection model according to unique key
+        /// </summary>
+        /// <param name="uniqueKey"></param>
+        /// <returns></returns>
+        [HttpGet("{uniqueKey}")]
+        [ProducesDefaultResponseType(typeof(GetRedirectUrlViewModel))]
+        public async Task<ActionResult<GetRedirectUrlViewModel>> GetRedirectUrl([FromRoute] string uniqueKey)
+        {
+            return Ok(await _mediator.Send(new GetRedirectUrlQuery(uniqueKey)));
+        }
     }
 }

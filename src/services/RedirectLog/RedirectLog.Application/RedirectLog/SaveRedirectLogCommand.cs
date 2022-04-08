@@ -29,11 +29,13 @@ namespace RedirectLog.Application.RedirectLog
         {
             var redirection = new Redirection
             {
+                Id = Guid.NewGuid().ToString(),
                 CustomUrlId = request.CustomUrlId,
                 TimeStamp = request.TimeStamp
             };
 
             await _redirectLogContext.Redirections.AddAsync(redirection, cancellationToken: cancellationToken);
+            await _redirectLogContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }
