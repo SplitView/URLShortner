@@ -1,9 +1,8 @@
 ﻿using URLShortner.Web.ViewModels;
 
-namespace URLShortner.Web.Services
+namespace URLShortner.Web.Services;
+
+public interface IApiService
 {
-    public interface IApiService
-    {
-        Task<GetRedirectUrlViewModel> GetRedirectUrlAsync(string uniqueKey);
-    }
+    Task<GetRedirectUrlViewModel> GetRedirectUrlAsync(string uniqueKey);
 }

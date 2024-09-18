@@ -1,12 +1,11 @@
-﻿namespace Shortner.Application.CustomUrl
+﻿namespace Shortner.Application.CustomUrl;
+
+public class GetRedirectUrlViewModel
 {
-    public class GetRedirectUrlViewModel
+    public GetRedirectUrlViewModel(string originalUrl)
     {
-        public GetRedirectUrlViewModel(string originalUrl)
-        {
             OriginalUrl = originalUrl;
         }
 
-        public string OriginalUrl { get; }
-    }
+    public string OriginalUrl { get; }
 }

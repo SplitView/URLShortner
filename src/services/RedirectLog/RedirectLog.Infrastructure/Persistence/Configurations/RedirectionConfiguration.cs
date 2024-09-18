@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RedirectLog.Domain.Entities;
 
-namespace RedirectLog.Infrastructure.Persistence.Configurations
+namespace RedirectLog.Infrastructure.Persistence.Configurations;
+
+public class RedirectionConfiguration : IEntityTypeConfiguration<Redirection>
 {
-    public class RedirectionConfiguration : IEntityTypeConfiguration<Redirection>
+    public void Configure(EntityTypeBuilder<Redirection> builder)
     {
-        public void Configure(EntityTypeBuilder<Redirection> builder)
-        {
             builder.HasKey(x => x.Id);
             builder.HasOne(x => x.CustomUrl)
                 .WithMany(x => x.Redirections)
@@ -15,5 +15,4 @@ namespace RedirectLog.Infrastructure.Persistence.Configurations
 
             builder.Property(x => x.TimeStamp).IsRequired();
         }
-    }
 }

@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.URLShortner.API", "tests\Test.URLShortner.API\Test.URLShortner.API.csproj", "{B7CCC6EF-46FA-492D-A9B6-573E60AA70E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UrlShortner.Api.Tests", "tests\Test.URLShortner.API\UrlShortner.Api.Tests.csproj", "{B7CCC6EF-46FA-492D-A9B6-573E60AA70E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{73DECD1B-4957-4E96-9169-47CE66BB1878}"
 EndProject
@@ -43,8 +43,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Gateway", "src\Web.Gateway\Web.Gateway.csproj", "{C33D1926-2D66-4579-98E1-0E610E71D4B6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLShortner.Common.Infrastructure", "src\URLShortner.Common.Infrastructure\URLShortner.Common.Infrastructure.csproj", "{D4F1D8CB-9B8F-4150-A20D-F609D85C4948}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortner.Web", "src\URLShortner.Web\URLShortner.Web.csproj", "{3983778C-D5F0-4378-9CC5-71C4E3C13C5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,10 +102,6 @@ Global
 		{D4F1D8CB-9B8F-4150-A20D-F609D85C4948}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4F1D8CB-9B8F-4150-A20D-F609D85C4948}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4F1D8CB-9B8F-4150-A20D-F609D85C4948}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3983778C-D5F0-4378-9CC5-71C4E3C13C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3983778C-D5F0-4378-9CC5-71C4E3C13C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3983778C-D5F0-4378-9CC5-71C4E3C13C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3983778C-D5F0-4378-9CC5-71C4E3C13C5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,7 +122,6 @@ Global
 		{E5AE0548-91E8-47AA-B2C6-38DD3365664C} = {53BF517D-34B5-444C-BB5F-D5A359841746}
 		{C33D1926-2D66-4579-98E1-0E610E71D4B6} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
 		{D4F1D8CB-9B8F-4150-A20D-F609D85C4948} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
-		{3983778C-D5F0-4378-9CC5-71C4E3C13C5A} = {4444D9C3-9A1F-468C-AD57-7BA51121C11E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA3DB800-88F8-4DA4-AA32-8F063E16C86B}

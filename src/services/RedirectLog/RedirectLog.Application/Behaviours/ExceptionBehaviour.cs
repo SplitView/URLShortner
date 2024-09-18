@@ -2,19 +2,19 @@
 
 using Microsoft.Extensions.Logging;
 
-namespace RedirectLog.Application
-{
-    public class ExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    {
-        private readonly ILogger<TRequest> _logger;
+namespace RedirectLog.Application;
 
-        public ExceptionBehaviour(ILogger<TRequest> logger)
-        {
+public class ExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+{
+    private readonly ILogger<TRequest> _logger;
+
+    public ExceptionBehaviour(ILogger<TRequest> logger)
+    {
             _logger = logger;
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
-        {
+    public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+    {
             try
             {
                 return await next();
@@ -26,5 +26,4 @@ namespace RedirectLog.Application
                 throw;
             }
         }
-    }
 }

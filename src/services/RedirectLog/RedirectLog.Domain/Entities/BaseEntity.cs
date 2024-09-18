@@ -1,7 +1,6 @@
-﻿namespace RedirectLog.Domain.Entities
+﻿namespace RedirectLog.Domain.Entities;
+
+public class BaseEntity
 {
-    public class BaseEntity
-    {
-        public string Id { get; set; }
-    }
+    public string Id { get; set; }
 }

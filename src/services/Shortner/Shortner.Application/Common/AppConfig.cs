@@ -1,7 +1,6 @@
-﻿namespace URLShortner.Application.Common
+﻿namespace URLShortner.Application.Common;
+
+public class AppConfig
 {
-    public class AppConfig
-    {
-        public int ExpiryTimeInSeconds { get; set; }
-    }
+    public int ExpiryTimeInSeconds { get; set; }
 }

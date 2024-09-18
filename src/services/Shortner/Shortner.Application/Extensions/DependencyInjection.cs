@@ -6,22 +6,21 @@ using Shortner.Application.Common.Behaviours;
 using System.Reflection;
 using URLShortner.Application.Common;
 
-namespace Shortner.Application.Extensions
+namespace Shortner.Application.Extensions;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+        services.Configure<AppConfig>(setting =>
         {
-            services.Configure<AppConfig>(setting =>
-            {
-                configuration.GetSection("AppConfig").Bind(setting);
-            });
+            configuration.GetSection("AppConfig").Bind(setting);
+        });
 
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+        services.AddMediatR(Assembly.GetExecutingAssembly());
 
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionBehaviour<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionBehaviour<,>));
 
-            return services;
-        }
+        return services;
     }
 }

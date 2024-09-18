@@ -1,7 +1,6 @@
-﻿namespace URLShortner.Web.ViewModels
+﻿namespace URLShortner.Web.ViewModels;
+
+public class GetRedirectUrlViewModel
 {
-    public class GetRedirectUrlViewModel
-    {
-        public string OriginalUrl { get; set; }
-    }
+    public string OriginalUrl { get; set; }
 }

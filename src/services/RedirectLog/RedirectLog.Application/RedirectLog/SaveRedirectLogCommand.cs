@@ -2,31 +2,31 @@
 using RedirectLog.Application.Common.Interface;
 using RedirectLog.Domain.Entities;
 
-namespace RedirectLog.Application.RedirectLog
+namespace RedirectLog.Application.RedirectLog;
+
+public class SaveRedirectLogCommand : IRequest<Unit>
 {
-    public class SaveRedirectLogCommand : IRequest<Unit>
+    public SaveRedirectLogCommand(string customUrlId, DateTime timeStamp)
     {
-        public SaveRedirectLogCommand(string customUrlId, DateTime timeStamp)
-        {
             CustomUrlId = customUrlId;
             TimeStamp = timeStamp;
         }
 
-        public string CustomUrlId { get; private set; }
-        public DateTime TimeStamp { get; private set; }
-    }
+    public string CustomUrlId { get; private set; }
+    public DateTime TimeStamp { get; private set; }
+}
 
-    public class SaveRedirectLogCommandHandler : IRequestHandler<SaveRedirectLogCommand, Unit>
+public class SaveRedirectLogCommandHandler : IRequestHandler<SaveRedirectLogCommand, Unit>
+{
+    private readonly IRedirectLogContext _redirectLogContext;
+
+    public SaveRedirectLogCommandHandler(IRedirectLogContext redirectLogContext)
     {
-        private readonly IRedirectLogContext _redirectLogContext;
-
-        public SaveRedirectLogCommandHandler(IRedirectLogContext redirectLogContext)
-        {
             _redirectLogContext = redirectLogContext;
         }
 
-        public async Task<Unit> Handle(SaveRedirectLogCommand request, CancellationToken cancellationToken)
-        {
+    public async Task<Unit> Handle(SaveRedirectLogCommand request, CancellationToken cancellationToken)
+    {
             var redirection = new Redirection
             {
                 Id = Guid.NewGuid().ToString(),
@@ -39,5 +39,4 @@ namespace RedirectLog.Application.RedirectLog
 
             return Unit.Value;
         }
-    }
 }

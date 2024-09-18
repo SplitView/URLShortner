@@ -3,29 +3,29 @@ using Microsoft.EntityFrameworkCore;
 using RedirectLog.Application.Common.Interface;
 using RedirectLog.Exceptions;
 
-namespace RedirectLog.Application.RedirectLog
+namespace RedirectLog.Application.RedirectLog;
+
+public class GetRedirectLogQuery : IRequest<RedirectLogViewModel>
 {
-    public class GetRedirectLogQuery : IRequest<RedirectLogViewModel>
+    public GetRedirectLogQuery(string uniqueKey)
     {
-        public GetRedirectLogQuery(string uniqueKey)
-        {
             UniqueKey = uniqueKey;
         }
 
-        public string UniqueKey { get; set; }
-    }
+    public string UniqueKey { get; set; }
+}
 
-    public class GetRedirectLogHandler : IRequestHandler<GetRedirectLogQuery, RedirectLogViewModel>
+public class GetRedirectLogHandler : IRequestHandler<GetRedirectLogQuery, RedirectLogViewModel>
+{
+    private readonly IRedirectLogContext _redirectLogContext;
+
+    public GetRedirectLogHandler(IRedirectLogContext redirectLogContext)
     {
-        private readonly IRedirectLogContext _redirectLogContext;
-
-        public GetRedirectLogHandler(IRedirectLogContext redirectLogContext)
-        {
             _redirectLogContext = redirectLogContext;
         }
 
-        public async Task<RedirectLogViewModel> Handle(GetRedirectLogQuery request, CancellationToken cancellationToken)
-        {
+    public async Task<RedirectLogViewModel> Handle(GetRedirectLogQuery request, CancellationToken cancellationToken)
+    {
             var customUrl = await _redirectLogContext.CustomUrls
                                                      .Include(x => x.Redirections)
                                                      .FirstOrDefaultAsync(x => x.UniqueKey == request.UniqueKey, cancellationToken);
@@ -42,5 +42,4 @@ namespace RedirectLog.Application.RedirectLog
 
             return result;
         }
-    }
 }

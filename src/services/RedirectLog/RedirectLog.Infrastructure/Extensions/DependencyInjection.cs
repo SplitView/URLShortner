@@ -8,12 +8,12 @@ using RedirectLog.Application.Consumers;
 using RedirectLog.Infrastructure.Persistence;
 using URLShortner.Common;
 
-namespace RedirectLog.Infrastructure.Extensions
+namespace RedirectLog.Infrastructure.Extensions;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
-        {
             string connectionString = configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<RedirectLogContext>(options =>
@@ -54,5 +54,4 @@ namespace RedirectLog.Infrastructure.Extensions
 
             return services;
         }
-    }
 }

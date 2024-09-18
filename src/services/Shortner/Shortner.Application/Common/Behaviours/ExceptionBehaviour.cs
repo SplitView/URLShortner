@@ -6,29 +6,28 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shortner.Application.Common.Behaviours
+namespace Shortner.Application.Common.Behaviours;
+
+public class ExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
 {
-    public class ExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    private readonly ILogger<TRequest> _logger;
+
+    public ExceptionBehaviour(ILogger<TRequest> logger)
     {
-        private readonly ILogger<TRequest> _logger;
+        _logger = logger;
+    }
 
-        public ExceptionBehaviour(ILogger<TRequest> logger)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    {
+        try
         {
-            _logger = logger;
+            return await next();
         }
-
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        catch (Exception ex)
         {
-            try
-            {
-                return await next();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Request: Exception occured and is unhandled {0} {1}", typeof(TRequest).Name, request);
+            _logger.LogError(ex, "Request: Exception occured and is unhandled {0} {1}", typeof(TRequest).Name, request);
 
-                throw;
-            }
+            throw;
         }
     }
 }

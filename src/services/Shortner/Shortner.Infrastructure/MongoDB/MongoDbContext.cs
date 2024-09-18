@@ -4,15 +4,15 @@ using MongoDB.Driver;
 using Shortner.Application.Interface;
 using Shortner.Domain.Entities;
 
-namespace Shortner.Infrastructure.MongoDB
-{
-    public class MongoDbContext : IURLShortnerContext
-    {
-        private readonly MongoClient _mongoClient;
-        private readonly IMongoDatabase _mongoDatabase;
+namespace Shortner.Infrastructure.MongoDB;
 
-        public MongoDbContext(IOptions<MongoSettings> options)
-        {
+public class MongoDbContext : IURLShortnerContext
+{
+    private readonly MongoClient _mongoClient;
+    private readonly IMongoDatabase _mongoDatabase;
+
+    public MongoDbContext(IOptions<MongoSettings> options)
+    {
             var settings = MongoClientSettings.FromConnectionString(options.Value.ConnectionString);
 
             settings.ClusterConfigurator = builder => builder.Subscribe(new MongoDbEventSubscriber());
@@ -23,11 +23,10 @@ namespace Shortner.Infrastructure.MongoDB
             CustomURLs = GetMongoCollection<CustomURL>(options.Value.CustomURLCollectionName);
         }
 
-        public IMongoCollection<CustomURL> CustomURLs { get; set; }
+    public IMongoCollection<CustomURL> CustomURLs { get; set; }
 
-        private IMongoCollection<T> GetMongoCollection<T>(string collectionName)
-        {
+    private IMongoCollection<T> GetMongoCollection<T>(string collectionName)
+    {
             return _mongoDatabase.GetCollection<T>(collectionName);
         }
-    }
 }

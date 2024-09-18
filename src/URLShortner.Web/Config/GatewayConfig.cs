@@ -1,7 +1,6 @@
-﻿namespace URLShortner.Web.Config
+﻿namespace URLShortner.Web.Config;
+
+public class GatewayConfig
 {
-    public class GatewayConfig
-    {
-        public string Url { get; set; }
-    }
+    public string Url { get; set; }
 }

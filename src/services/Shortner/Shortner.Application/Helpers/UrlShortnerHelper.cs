@@ -1,9 +1,9 @@
-﻿namespace Shortner.Application.Helpers
+﻿namespace Shortner.Application.Helpers;
+
+public class UrlShortnerHelper
 {
-    public class UrlShortnerHelper
+    public static string GetUniqueKey()
     {
-        public static string GetUniqueKey()
-        {
             string uniqueToken = string.Empty;
 
             var alphaNumericSet = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
@@ -16,5 +16,4 @@
 
             return uniqueToken;
         }
-    }
 }
