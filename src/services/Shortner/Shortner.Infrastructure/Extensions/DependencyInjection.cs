@@ -36,7 +36,6 @@ public static class DependencyInjection
                 });
             });
 
-            services.AddMassTransitHostedService();
             return services;
         }
 }
