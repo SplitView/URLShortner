@@ -6,6 +6,8 @@ using URLShortner.Common.Infrastructure.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Host.ConfigureAppConfiguration((context, config) =>
 {
     config.AddJsonFile("ocelot.json");
@@ -17,6 +19,8 @@ builder.Host.UseAllElasticApm();
 builder.Services.AddOcelot();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())

@@ -44,6 +44,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Gateway", "src\Web.Gate
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLShortner.Common.Infrastructure", "src\URLShortner.Common.Infrastructure\URLShortner.Common.Infrastructure.csproj", "{D4F1D8CB-9B8F-4150-A20D-F609D85C4948}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortner.AppHost", "UrlShortner.AppHost\UrlShortner.AppHost.csproj", "{C378F434-50A8-4A26-9ABC-33183863F3B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UrlShortner.ServiceDefaults", "UrlShortner.ServiceDefaults\UrlShortner.ServiceDefaults.csproj", "{9BAED143-7A92-4BF7-8459-D37F63214487}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +106,14 @@ Global
 		{D4F1D8CB-9B8F-4150-A20D-F609D85C4948}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4F1D8CB-9B8F-4150-A20D-F609D85C4948}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4F1D8CB-9B8F-4150-A20D-F609D85C4948}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C378F434-50A8-4A26-9ABC-33183863F3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C378F434-50A8-4A26-9ABC-33183863F3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C378F434-50A8-4A26-9ABC-33183863F3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C378F434-50A8-4A26-9ABC-33183863F3B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BAED143-7A92-4BF7-8459-D37F63214487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BAED143-7A92-4BF7-8459-D37F63214487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BAED143-7A92-4BF7-8459-D37F63214487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BAED143-7A92-4BF7-8459-D37F63214487}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

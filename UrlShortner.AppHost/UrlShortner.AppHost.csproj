@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>8177fbf1-38b8-4943-a84c-0ebcd33ab06c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\services\RedirectLog\RedirectLog.API\RedirectLog.API.csproj" />
+    <ProjectReference Include="..\src\services\Shortner\Shortner.API\Shortner.API.csproj" />
+    <ProjectReference Include="..\src\Web.Gateway\Web.Gateway.csproj" />
+  </ItemGroup>
+
+</Project>

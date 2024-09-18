@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\UrlShortner.ServiceDefaults\UrlShortner.ServiceDefaults.csproj" />
     <ProjectReference Include="..\URLShortner.Common.Infrastructure\URLShortner.Common.Infrastructure.csproj" />
   </ItemGroup>
 

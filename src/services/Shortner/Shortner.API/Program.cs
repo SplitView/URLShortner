@@ -8,6 +8,8 @@ using URLShortner.Common.Infrastructure.Logging;
 using Elastic.Apm.NetCoreAll;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 //builder.Host.UseSerilog(SeriLogger.Configure);
 // Add services to the container.
 builder.Host.UseSerilog(SeriLogger.Configure);
@@ -36,6 +38,8 @@ builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
