@@ -2,10 +2,4 @@
 
 namespace Shortner.Application.Exceptions;
 
-public class DuplicateCustomKeyException : Exception
-{
-    public DuplicateCustomKeyException(string customKey) : base($"Url with key {customKey} already exists.")
-    {
-
-        }
-}
+public class DuplicateCustomKeyException(string customKey) : Exception($"Url with key {customKey} already exists.");

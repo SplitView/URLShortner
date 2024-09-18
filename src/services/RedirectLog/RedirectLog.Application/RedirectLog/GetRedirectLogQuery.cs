@@ -5,28 +5,17 @@ using RedirectLog.Exceptions;
 
 namespace RedirectLog.Application.RedirectLog;
 
-public class GetRedirectLogQuery : IRequest<RedirectLogViewModel>
+public class GetRedirectLogQuery(string uniqueKey) : IRequest<RedirectLogViewModel>
 {
-    public GetRedirectLogQuery(string uniqueKey)
-    {
-            UniqueKey = uniqueKey;
-        }
-
-    public string UniqueKey { get; set; }
+    public string UniqueKey { get; set; } = uniqueKey;
 }
 
-public class GetRedirectLogHandler : IRequestHandler<GetRedirectLogQuery, RedirectLogViewModel>
+public class GetRedirectLogHandler(IRedirectLogContext redirectLogContext)
+    : IRequestHandler<GetRedirectLogQuery, RedirectLogViewModel>
 {
-    private readonly IRedirectLogContext _redirectLogContext;
-
-    public GetRedirectLogHandler(IRedirectLogContext redirectLogContext)
-    {
-            _redirectLogContext = redirectLogContext;
-        }
-
     public async Task<RedirectLogViewModel> Handle(GetRedirectLogQuery request, CancellationToken cancellationToken)
     {
-            var customUrl = await _redirectLogContext.CustomUrls
+            var customUrl = await redirectLogContext.CustomUrls
                                                      .Include(x => x.Redirections)
                                                      .FirstOrDefaultAsync(x => x.UniqueKey == request.UniqueKey, cancellationToken);
             if (customUrl == null)

@@ -5,17 +5,10 @@ using URLShortner.Common.Messages;
 
 namespace RedirectLog.Application.Consumers;
 
-public class UrlRedirectedConsumer : IConsumer<UrlRedirectedEvent>
+public class UrlRedirectedConsumer(IMediator mediator) : IConsumer<UrlRedirectedEvent>
 {
-    private readonly IMediator _mediator;
-
-    public UrlRedirectedConsumer(IMediator mediator)
-    {
-            _mediator = mediator;
-        }
-
     public async Task Consume(ConsumeContext<UrlRedirectedEvent> context)
     {
-            await _mediator.Send(new SaveRedirectLogCommand(context.Message.CustomUrlId, context.Message.TimeStamp));
+            await mediator.Send(new SaveRedirectLogCommand(context.Message.CustomUrlId, context.Message.TimeStamp));
         }
 }

@@ -4,26 +4,19 @@ using Microsoft.Extensions.Logging;
 
 namespace RedirectLog.Application;
 
-public class ExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public class ExceptionBehaviour<TRequest, TResponse>(ILogger<TRequest> logger) : IPipelineBehavior<TRequest, TResponse>
 {
-    private readonly ILogger<TRequest> _logger;
-
-    public ExceptionBehaviour(ILogger<TRequest> logger)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-            _logger = logger;
+        try
+        {
+            return await next();
         }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Request: Exception occured and is unhandled {0} {1}", typeof(TRequest).Name, request);
 
-    public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
-    {
-            try
-            {
-                return await next();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Request: Exception occured and is unhandled {0} {1}", typeof(TRequest).Name, request);
-
-                throw;
-            }
+            throw;
         }
+    }
 }

@@ -4,27 +4,15 @@ using RedirectLog.Domain.Entities;
 
 namespace RedirectLog.Application.RedirectLog;
 
-public class SaveRedirectLogCommand : IRequest<Unit>
+public class SaveRedirectLogCommand(string customUrlId, DateTime timeStamp) : IRequest<Unit>
 {
-    public SaveRedirectLogCommand(string customUrlId, DateTime timeStamp)
-    {
-            CustomUrlId = customUrlId;
-            TimeStamp = timeStamp;
-        }
-
-    public string CustomUrlId { get; private set; }
-    public DateTime TimeStamp { get; private set; }
+    public string CustomUrlId { get; private set; } = customUrlId;
+    public DateTime TimeStamp { get; private set; } = timeStamp;
 }
 
-public class SaveRedirectLogCommandHandler : IRequestHandler<SaveRedirectLogCommand, Unit>
+public class SaveRedirectLogCommandHandler(IRedirectLogContext redirectLogContext)
+    : IRequestHandler<SaveRedirectLogCommand, Unit>
 {
-    private readonly IRedirectLogContext _redirectLogContext;
-
-    public SaveRedirectLogCommandHandler(IRedirectLogContext redirectLogContext)
-    {
-            _redirectLogContext = redirectLogContext;
-        }
-
     public async Task<Unit> Handle(SaveRedirectLogCommand request, CancellationToken cancellationToken)
     {
             var redirection = new Redirection
@@ -34,8 +22,8 @@ public class SaveRedirectLogCommandHandler : IRequestHandler<SaveRedirectLogComm
                 TimeStamp = request.TimeStamp
             };
 
-            await _redirectLogContext.Redirections.AddAsync(redirection, cancellationToken: cancellationToken);
-            await _redirectLogContext.SaveChangesAsync(cancellationToken);
+            await redirectLogContext.Redirections.AddAsync(redirection, cancellationToken: cancellationToken);
+            await redirectLogContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

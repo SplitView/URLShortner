@@ -5,29 +5,22 @@ using System.Text.Json;
 
 namespace Shortner.Infrastructure.Redis;
 
-public class RedisCacheService : ICacheService
+public class RedisCacheService(IDistributedCache cache) : ICacheService
 {
-    private readonly IDistributedCache _cache;
-
-    public RedisCacheService(IDistributedCache cache)
-    {
-            _cache = cache;
-        }
-
     public async Task<T> GetAsync<T>(string key) where T : class
     {
-            var result = await _cache.GetStringAsync(key);
+            var result = await cache.GetStringAsync(key);
             return result is null ? null : JsonSerializer.Deserialize<T>(result);
         }
 
     public async Task SetAsync<T>(string key, T value, DistributedCacheEntryOptions options) where T : class
     {
             var result = JsonSerializer.Serialize(value);
-            await _cache.SetStringAsync(key, result, options);
+            await cache.SetStringAsync(key, result, options);
         }
 
     public async Task ClearAsync(string key)
     {
-            await _cache.RemoveAsync(key);
+            await cache.RemoveAsync(key);
         }
 }

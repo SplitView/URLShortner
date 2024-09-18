@@ -19,21 +19,12 @@ public class GenerateCommand : IRequest<CustomUrlViewModel>
     public int ExpiryTimeInSeconds { get; set; }
 }
 
-public class GenerateCommandHandler : IRequestHandler<GenerateCommand, CustomUrlViewModel>
+public class GenerateCommandHandler(
+    IURLShortnerContext uRLShortnerContext,
+    IOptions<AppConfig> appConfig,
+    IPublishEndpoint publishEndpoint)
+    : IRequestHandler<GenerateCommand, CustomUrlViewModel>
 {
-    private readonly IURLShortnerContext _uRLShortnerContext;
-    private readonly IOptions<AppConfig> _appConfig;
-    private readonly IPublishEndpoint _publishEndpoint;
-
-    public GenerateCommandHandler(IURLShortnerContext uRLShortnerContext,
-        IOptions<AppConfig> appConfig,
-        IPublishEndpoint publishEndpoint)
-    {
-        _uRLShortnerContext = uRLShortnerContext;
-        _appConfig = appConfig;
-        _publishEndpoint = publishEndpoint;
-    }
-
     public async Task<CustomUrlViewModel> Handle(GenerateCommand request, CancellationToken cancellationToken)
     {
         var uniqueKey = await GetUniqueKey(request, cancellationToken);
@@ -46,9 +37,9 @@ public class GenerateCommandHandler : IRequestHandler<GenerateCommand, CustomUrl
             OriginalURL = request.OriginalURL
         };
 
-        await _uRLShortnerContext.CustomURLs.InsertOneAsync(customUrl, cancellationToken: cancellationToken);
+        await uRLShortnerContext.CustomURLs.InsertOneAsync(customUrl, cancellationToken: cancellationToken);
 
-        await _publishEndpoint.Publish(new CustomUrlCreatedEvent(customUrl.Id, customUrl.OriginalURL, customUrl.UniqueKey, customUrl.ExpiryDate), cancellationToken);
+        await publishEndpoint.Publish(new CustomUrlCreatedEvent(customUrl.Id, customUrl.OriginalURL, customUrl.UniqueKey, customUrl.ExpiryDate), cancellationToken);
 
         return CustomUrlViewModel.FromModel(customUrl);
     }
@@ -74,7 +65,7 @@ public class GenerateCommandHandler : IRequestHandler<GenerateCommand, CustomUrl
         }
         else
         {
-            return _appConfig.Value.ExpiryTimeInSeconds;
+            return appConfig.Value.ExpiryTimeInSeconds;
         }
     }
 
@@ -87,7 +78,7 @@ public class GenerateCommandHandler : IRequestHandler<GenerateCommand, CustomUrl
         {
             uniqueKey = UrlShortnerHelper.GetUniqueKey();
 
-            hasDuplicateKey = await _uRLShortnerContext.CustomURLs
+            hasDuplicateKey = await uRLShortnerContext.CustomURLs
                 .Find(x => x.UniqueKey == uniqueKey)
                 .AnyAsync(cancellationToken);
         }
@@ -97,7 +88,7 @@ public class GenerateCommandHandler : IRequestHandler<GenerateCommand, CustomUrl
 
     private async Task GuardDuplicateCustomKey(GenerateCommand request, CancellationToken cancellationToken)
     {
-        var hasDuplicateUniqueKey = await _uRLShortnerContext.CustomURLs.Find(x => x.UniqueKey == request.CustomUniqueKey).AnyAsync(cancellationToken: cancellationToken);
+        var hasDuplicateUniqueKey = await uRLShortnerContext.CustomURLs.Find(x => x.UniqueKey == request.CustomUniqueKey).AnyAsync(cancellationToken: cancellationToken);
         if (hasDuplicateUniqueKey)
         {
             throw new DuplicateCustomKeyException(request.CustomUniqueKey);

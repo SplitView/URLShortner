@@ -8,39 +8,25 @@ using URLShortner.Common.Messages;
 
 namespace Shortner.Application.CustomUrl;
 
-public class GetRedirectUrlQuery : IRequest<GetRedirectUrlViewModel>
+public class GetRedirectUrlQuery(string uniqueKey) : IRequest<GetRedirectUrlViewModel>
 {
-    public string UniqueKey { get; set; }
-
-    public GetRedirectUrlQuery(string uniqueKey)
-    {
-        UniqueKey = uniqueKey;
-    }
+    public string UniqueKey { get; set; } = uniqueKey;
 }
 
-public class GetRedirectUrlQueryHandler : IRequestHandler<GetRedirectUrlQuery, GetRedirectUrlViewModel>
+public class GetRedirectUrlQueryHandler(
+    IURLShortnerContext uRLShortnerContext,
+    ICacheService cacheService,
+    IPublishEndpoint publishEndpoint)
+    : IRequestHandler<GetRedirectUrlQuery, GetRedirectUrlViewModel>
 {
-    private readonly IURLShortnerContext _uRLShortnerContext;
-    private readonly ICacheService _cacheService;
-    private readonly IPublishEndpoint _publishEndpoint;
-
-    public GetRedirectUrlQueryHandler(IURLShortnerContext uRLShortnerContext,
-        ICacheService cacheService,
-        IPublishEndpoint publishEndpoint)
-    {
-        _uRLShortnerContext = uRLShortnerContext;
-        _cacheService = cacheService;
-        _publishEndpoint = publishEndpoint;
-    }
-
     public async Task<GetRedirectUrlViewModel> Handle(GetRedirectUrlQuery request, CancellationToken cancellationToken)
     {
         CustomUrlViewModel viewModel = null;
 
-        var cachedValue = await _cacheService.GetAsync<CustomUrlViewModel>(request.UniqueKey);
+        var cachedValue = await cacheService.GetAsync<CustomUrlViewModel>(request.UniqueKey);
         if (cachedValue == null)
         {
-            var customUrl = await _uRLShortnerContext.CustomURLs.Find(x => x.UniqueKey == request.UniqueKey).FirstOrDefaultAsync(cancellationToken: cancellationToken);
+            var customUrl = await uRLShortnerContext.CustomURLs.Find(x => x.UniqueKey == request.UniqueKey).FirstOrDefaultAsync(cancellationToken: cancellationToken);
             if (customUrl == null)
             {
                 throw new EntityNotFoundException($"Redirect url for {request.UniqueKey} not found");
@@ -51,7 +37,7 @@ public class GetRedirectUrlQueryHandler : IRequestHandler<GetRedirectUrlQuery, G
                 .SetAbsoluteExpiration(TimeSpan.FromDays(1))
                 .SetSlidingExpiration(TimeSpan.FromHours(8));
 
-            await _cacheService.SetAsync(request.UniqueKey, viewModel, cacheOptions);
+            await cacheService.SetAsync(request.UniqueKey, viewModel, cacheOptions);
         }
         else
         {
@@ -60,11 +46,11 @@ public class GetRedirectUrlQueryHandler : IRequestHandler<GetRedirectUrlQuery, G
 
         if (viewModel.ExpiryDate < DateTime.UtcNow)
         {
-            await _cacheService.ClearAsync(request.UniqueKey);
+            await cacheService.ClearAsync(request.UniqueKey);
             throw new UrlExpiredException(request.UniqueKey);
         }
 
-        await _publishEndpoint.Publish(new UrlRedirectedEvent(viewModel.Id), cancellationToken);
+        await publishEndpoint.Publish(new UrlRedirectedEvent(viewModel.Id), cancellationToken);
 
         return new GetRedirectUrlViewModel(viewModel.OriginalURL);
     }

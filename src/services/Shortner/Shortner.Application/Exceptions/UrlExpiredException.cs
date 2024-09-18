@@ -1,9 +1,3 @@
 ﻿namespace Shortner.Application.Exceptions;
 
-public class UrlExpiredException : Exception
-{
-    public UrlExpiredException(string key) : base($"Url with key {key} expired.")
-    {
-
-        }
-}
+public class UrlExpiredException(string key) : Exception($"Url with key {key} expired.");

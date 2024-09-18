@@ -5,13 +5,8 @@ using System.Reflection;
 
 namespace RedirectLog.Infrastructure.Persistence;
 
-public class RedirectLogContext : DbContext, IRedirectLogContext
+public class RedirectLogContext(DbContextOptions<RedirectLogContext> options) : DbContext(options), IRedirectLogContext
 {
-    public RedirectLogContext(DbContextOptions<RedirectLogContext> options) : base(options)
-    {
-
-        }
-
     public DbSet<CustomUrl> CustomUrls { get; set; }
     public DbSet<Redirection> Redirections { get; set; }
 

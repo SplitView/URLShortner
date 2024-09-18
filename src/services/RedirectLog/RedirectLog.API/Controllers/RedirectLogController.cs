@@ -6,15 +6,8 @@ namespace RedirectLog.API.Controllers;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]
-public class RedirectLogController : Controller
+public class RedirectLogController(IMediator mediator) : Controller
 {
-    private readonly IMediator _mediator;
-
-    public RedirectLogController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
     /// <summary>
     /// Get the count and timestamps of rediecrion according to given key
     /// </summary>
@@ -24,7 +17,7 @@ public class RedirectLogController : Controller
     [ProducesDefaultResponseType]
     public async Task<ActionResult<RedirectLogViewModel>> GetRedirections(string uniqueKey)
     {
-        var result = await _mediator.Send(new GetRedirectLogQuery(uniqueKey));
+        var result = await mediator.Send(new GetRedirectLogQuery(uniqueKey));
         return Ok(result);
     }
 }
