@@ -13,7 +13,7 @@ builder.AddServiceDefaults();
 //builder.Host.UseSerilog(SeriLogger.Configure);
 // Add services to the container.
 builder.Host.UseSerilog(SeriLogger.Configure);
-builder.Host.UseAllElasticApm();
+//builder.Host.UseAllElasticApm();
 
 builder.Services.AddControllers();
 builder.Services.AddApiVersioning(config =>
@@ -35,7 +35,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddApplication(builder.Configuration);
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.AddInfrastructure(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
