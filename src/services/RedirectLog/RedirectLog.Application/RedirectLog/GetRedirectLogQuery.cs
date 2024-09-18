@@ -15,20 +15,14 @@ public class GetRedirectLogHandler(IRedirectLogContext redirectLogContext)
 {
     public async Task<RedirectLogViewModel> Handle(GetRedirectLogQuery request, CancellationToken cancellationToken)
     {
-            var customUrl = await redirectLogContext.CustomUrls
-                                                     .Include(x => x.Redirections)
-                                                     .FirstOrDefaultAsync(x => x.UniqueKey == request.UniqueKey, cancellationToken);
-            if (customUrl == null)
-            {
-                throw new EntityNotFoundException($"Custom url with {request.UniqueKey} not found.");
-            }
+        var customUrl = await redirectLogContext.CustomUrls
+            .Include(x => x.Redirections)
+            .FirstOrDefaultAsync(x => x.UniqueKey == request.UniqueKey, cancellationToken);
+        if (customUrl == null) throw new EntityNotFoundException($"Custom url with {request.UniqueKey} not found.");
 
-            RedirectLogViewModel result = new();
-            foreach (var redirection in customUrl.Redirections)
-            {
-                result.TimeStamps.Add(redirection.TimeStamp);
-            }
+        RedirectLogViewModel result = new();
+        foreach (var redirection in customUrl.Redirections) result.TimeStamps.Add(redirection.TimeStamp);
 
-            return result;
-        }
+        return result;
+    }
 }

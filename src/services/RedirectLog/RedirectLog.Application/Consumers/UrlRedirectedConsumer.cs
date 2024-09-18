@@ -9,6 +9,6 @@ public class UrlRedirectedConsumer(IMediator mediator) : IConsumer<UrlRedirected
 {
     public async Task Consume(ConsumeContext<UrlRedirectedEvent> context)
     {
-            await mediator.Send(new SaveRedirectLogCommand(context.Message.CustomUrlId, context.Message.TimeStamp));
-        }
+        await mediator.Send(new SaveRedirectLogCommand(context.Message.CustomUrlId, context.Message.TimeStamp));
+    }
 }

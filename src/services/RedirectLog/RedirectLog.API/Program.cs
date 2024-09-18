@@ -1,13 +1,13 @@
+using System.Reflection;
+using Elastic.Apm.NetCoreAll;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using RedirectLog.Application.Extensions;
 using RedirectLog.Infrastructure.Extensions;
 using RedirectLog.Infrastructure.Persistence;
-using System.Reflection;
-using RedirectLog.Application.Extensions;
-using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using URLShortner.Common.Infrastructure.Logging;
-using Elastic.Apm.NetCoreAll;
 
 var builder = WebApplication.CreateBuilder(args);
 

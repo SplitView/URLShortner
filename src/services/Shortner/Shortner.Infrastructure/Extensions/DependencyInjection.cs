@@ -1,5 +1,4 @@
 ﻿using MassTransit;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shortner.Application.Interface;
@@ -12,30 +11,24 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-            //mongo
-            services.AddSingleton<IURLShortnerContext, MongoDbContext>();
-            services.Configure<MongoSettings>(setting =>
-            {
-                configuration.GetSection("MongoSettings").Bind(setting);
-            });
+        //mongo
+        services.AddSingleton<IURLShortnerContext, MongoDbContext>();
+        services.Configure<MongoSettings>(setting => { configuration.GetSection("MongoSettings").Bind(setting); });
 
-            //cache
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = configuration.GetSection("Redis")["ConnectionString"];
-            });
+        //cache
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = configuration.GetSection("Redis")["ConnectionString"];
+        });
 
-            services.AddSingleton<ICacheService, RedisCacheService>();
+        services.AddSingleton<ICacheService, RedisCacheService>();
 
-            //rabbitmq
-            services.AddMassTransit(config =>
-            {
-                config.UsingRabbitMq((ctx, cfg) =>
-                {
-                    cfg.Host(configuration["RabbitMq:ConnectionString"]);
-                });
-            });
+        //rabbitmq
+        services.AddMassTransit(config =>
+        {
+            config.UsingRabbitMq((ctx, cfg) => { cfg.Host(configuration["RabbitMq:ConnectionString"]); });
+        });
 
-            return services;
-        }
+        return services;
+    }
 }

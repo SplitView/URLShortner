@@ -9,7 +9,7 @@ namespace RedirectLog.API.Controllers;
 public class RedirectLogController(IMediator mediator) : Controller
 {
     /// <summary>
-    /// Get the count and timestamps of rediecrion according to given key
+    ///     Get the count and timestamps of rediecrion according to given key
     /// </summary>
     /// <param name="uniqueKey"></param>
     /// <returns></returns>

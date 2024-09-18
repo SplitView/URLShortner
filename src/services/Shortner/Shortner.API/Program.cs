@@ -1,11 +1,11 @@
+using System.Reflection;
+using Elastic.Apm.NetCoreAll;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Shortner.Application.Extensions;
 using Shortner.Infrastructure.Extensions;
-using System.Reflection;
 using URLShortner.Common.Infrastructure.Logging;
-using Elastic.Apm.NetCoreAll;
 
 var builder = WebApplication.CreateBuilder(args);
 

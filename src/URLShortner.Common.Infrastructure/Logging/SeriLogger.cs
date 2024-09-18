@@ -25,7 +25,8 @@ public static class SeriLogger
                 .WriteTo.Elasticsearch(
                     new ElasticsearchSinkOptions(new Uri("http://elasticsearch:9200/"))
                     {
-                        IndexFormat = $"urlshortner-{context.HostingEnvironment.ApplicationName?.ToLower().Replace(".", "-")}-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
+                        IndexFormat =
+                            $"urlshortner-{context.HostingEnvironment.ApplicationName?.ToLower().Replace(".", "-")}-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
                         AutoRegisterTemplate = true,
                         CustomFormatter = new EcsTextFormatter()
                     })

@@ -26,11 +26,9 @@ public class GetRedirectUrlQueryHandler(
         var cachedValue = await cacheService.GetAsync<CustomUrlViewModel>(request.UniqueKey);
         if (cachedValue == null)
         {
-            var customUrl = await uRLShortnerContext.CustomURLs.Find(x => x.UniqueKey == request.UniqueKey).FirstOrDefaultAsync(cancellationToken: cancellationToken);
-            if (customUrl == null)
-            {
-                throw new EntityNotFoundException($"Redirect url for {request.UniqueKey} not found");
-            }
+            var customUrl = await uRLShortnerContext.CustomURLs.Find(x => x.UniqueKey == request.UniqueKey)
+                .FirstOrDefaultAsync(cancellationToken);
+            if (customUrl == null) throw new EntityNotFoundException($"Redirect url for {request.UniqueKey} not found");
 
             viewModel = CustomUrlViewModel.FromModel(customUrl);
             var cacheOptions = new DistributedCacheEntryOptions()

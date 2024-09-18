@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using RedirectLog.Application.Common.Interface;
+using RedirectLog.Domain.Entities;
 
 namespace RedirectLog.Application.CustomUrls;
 
@@ -17,16 +18,16 @@ public class SaveCustomUrlCommandHandler(IRedirectLogContext redirectLogContext)
 {
     public async Task<Unit> Handle(SaveCustomUrlCommand request, CancellationToken cancellationToken)
     {
-            var customUrl = new Domain.Entities.CustomUrl
-            {
-                ExpiryDate = request.ExpiryDate,
-                Id = request.CustomUrlId,
-                OriginalURL = request.OriginalURL,
-                UniqueKey = request.UniqueKey
-            };
+        var customUrl = new CustomUrl
+        {
+            ExpiryDate = request.ExpiryDate,
+            Id = request.CustomUrlId,
+            OriginalURL = request.OriginalURL,
+            UniqueKey = request.UniqueKey
+        };
 
-            await redirectLogContext.CustomUrls.AddAsync(customUrl,cancellationToken);
-            await redirectLogContext.SaveChangesAsync(cancellationToken);
-            return Unit.Value;
-        }
+        await redirectLogContext.CustomUrls.AddAsync(customUrl, cancellationToken);
+        await redirectLogContext.SaveChangesAsync(cancellationToken);
+        return Unit.Value;
+    }
 }

@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using Shortner.Application.Exceptions;
 using Shortner.Application.Helpers;
 using Shortner.Application.Interface;
+using Shortner.Domain.Entities;
 using URLShortner.Application.Common;
 using URLShortner.Common.Messages;
 
@@ -30,7 +31,7 @@ public class GenerateCommandHandler(
         var uniqueKey = await GetUniqueKey(request, cancellationToken);
         var expiryTimeInSeconds = GetExpiryTime(request);
 
-        var customUrl = new Domain.Entities.CustomURL()
+        var customUrl = new CustomURL
         {
             UniqueKey = uniqueKey,
             ExpiryDate = DateTime.UtcNow.AddSeconds(expiryTimeInSeconds),
@@ -39,7 +40,9 @@ public class GenerateCommandHandler(
 
         await uRLShortnerContext.CustomURLs.InsertOneAsync(customUrl, cancellationToken: cancellationToken);
 
-        await publishEndpoint.Publish(new CustomUrlCreatedEvent(customUrl.Id, customUrl.OriginalURL, customUrl.UniqueKey, customUrl.ExpiryDate), cancellationToken);
+        await publishEndpoint.Publish(
+            new CustomUrlCreatedEvent(customUrl.Id, customUrl.OriginalURL, customUrl.UniqueKey, customUrl.ExpiryDate),
+            cancellationToken);
 
         return CustomUrlViewModel.FromModel(customUrl);
     }
@@ -51,29 +54,22 @@ public class GenerateCommandHandler(
             await GuardDuplicateCustomKey(request, cancellationToken);
             return request.CustomUniqueKey;
         }
-        else
-        {
-            return await GenerateAndGetUniqueKeyAsync(cancellationToken);
-        }
+
+        return await GenerateAndGetUniqueKeyAsync(cancellationToken);
     }
 
     private int GetExpiryTime(GenerateCommand request)
     {
         if (request.UseCustomExpiry && request.ExpiryTimeInSeconds > 0)
-        {
             return request.ExpiryTimeInSeconds;
-        }
-        else
-        {
-            return appConfig.Value.ExpiryTimeInSeconds;
-        }
+        return appConfig.Value.ExpiryTimeInSeconds;
     }
 
     private async Task<string> GenerateAndGetUniqueKeyAsync(CancellationToken cancellationToken)
     {
-        string uniqueKey = string.Empty;
+        var uniqueKey = string.Empty;
 
-        bool hasDuplicateKey = true;
+        var hasDuplicateKey = true;
         while (hasDuplicateKey)
         {
             uniqueKey = UrlShortnerHelper.GetUniqueKey();
@@ -88,10 +84,8 @@ public class GenerateCommandHandler(
 
     private async Task GuardDuplicateCustomKey(GenerateCommand request, CancellationToken cancellationToken)
     {
-        var hasDuplicateUniqueKey = await uRLShortnerContext.CustomURLs.Find(x => x.UniqueKey == request.CustomUniqueKey).AnyAsync(cancellationToken: cancellationToken);
-        if (hasDuplicateUniqueKey)
-        {
-            throw new DuplicateCustomKeyException(request.CustomUniqueKey);
-        }
+        var hasDuplicateUniqueKey = await uRLShortnerContext.CustomURLs
+            .Find(x => x.UniqueKey == request.CustomUniqueKey).AnyAsync(cancellationToken);
+        if (hasDuplicateUniqueKey) throw new DuplicateCustomKeyException(request.CustomUniqueKey);
     }
 }

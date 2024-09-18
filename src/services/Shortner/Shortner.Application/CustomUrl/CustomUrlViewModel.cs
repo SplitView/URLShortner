@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Shortner.Domain.Entities;
 
 namespace Shortner.Application.CustomUrl;
 
@@ -10,19 +10,19 @@ public class CustomUrlViewModel
     public DateTime ExpiryDate { get; set; }
 
     /// <summary>
-    /// Url that redirects to the original url
+    ///     Url that redirects to the original url
     /// </summary>
     public string RedirectURL { get; set; }
 
-    public static CustomUrlViewModel FromModel(Domain.Entities.CustomURL customURL)
+    public static CustomUrlViewModel FromModel(CustomURL customURL)
     {
-            return new CustomUrlViewModel
-            {
-                Id = customURL.Id,
-                ExpiryDate = customURL.ExpiryDate,
-                UniqueKey = customURL.UniqueKey,
-                OriginalURL = customURL.OriginalURL,
-                RedirectURL = string.Empty
-            };
-        }
+        return new CustomUrlViewModel
+        {
+            Id = customURL.Id,
+            ExpiryDate = customURL.ExpiryDate,
+            UniqueKey = customURL.UniqueKey,
+            OriginalURL = customURL.OriginalURL,
+            RedirectURL = string.Empty
+        };
+    }
 }

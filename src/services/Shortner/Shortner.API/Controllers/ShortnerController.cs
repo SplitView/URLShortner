@@ -13,11 +13,11 @@ public class ShortnerController : Controller
 
     public ShortnerController(IMediator mediator)
     {
-            _mediator = mediator;
-        }
+        _mediator = mediator;
+    }
 
     /// <summary>
-    /// Generate the short url for an original url
+    ///     Generate the short url for an original url
     /// </summary>
     /// <param name="command"></param>
     /// <returns></returns>
@@ -25,12 +25,12 @@ public class ShortnerController : Controller
     [ProducesDefaultResponseType]
     public async Task<ActionResult<CustomUrlViewModel>> GenerateUrl(GenerateCommand command)
     {
-            var result = await _mediator.Send(command);
-            return Ok(result);
-        }
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
 
     /// <summary>
-    /// Gets the redirection model according to unique key
+    ///     Gets the redirection model according to unique key
     /// </summary>
     /// <param name="uniqueKey"></param>
     /// <returns></returns>
@@ -38,6 +38,6 @@ public class ShortnerController : Controller
     [ProducesDefaultResponseType(typeof(GetRedirectUrlViewModel))]
     public async Task<ActionResult<GetRedirectUrlViewModel>> GetRedirectUrl([FromRoute] string uniqueKey)
     {
-            return Ok(await _mediator.Send(new GetRedirectUrlQuery(uniqueKey)));
-        }
+        return Ok(await _mediator.Send(new GetRedirectUrlQuery(uniqueKey)));
+    }
 }

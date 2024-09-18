@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using RedirectLog.Application.Common.Interface;
 using RedirectLog.Domain.Entities;
-using System.Reflection;
 
 namespace RedirectLog.Infrastructure.Persistence;
 
@@ -12,8 +12,8 @@ public class RedirectLogContext(DbContextOptions<RedirectLogContext> options) : 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-            base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+    }
 }

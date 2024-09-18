@@ -4,8 +4,8 @@ public class CustomUrl : BaseEntity
 {
     public CustomUrl()
     {
-            Redirections = new HashSet<Redirection>();
-        }
+        Redirections = new HashSet<Redirection>();
+    }
 
     public string OriginalURL { get; set; }
     public string UniqueKey { get; set; }

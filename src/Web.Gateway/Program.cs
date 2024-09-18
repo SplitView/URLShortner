@@ -8,10 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Host.ConfigureAppConfiguration((context, config) =>
-{
-    config.AddJsonFile("ocelot.json");
-});
+builder.Host.ConfigureAppConfiguration((context, config) => { config.AddJsonFile("ocelot.json"); });
 
 builder.Host.UseSerilog(SeriLogger.Configure);
 builder.Host.UseAllElasticApm();

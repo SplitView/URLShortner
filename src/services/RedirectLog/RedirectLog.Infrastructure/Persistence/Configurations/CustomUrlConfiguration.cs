@@ -8,14 +8,14 @@ public class CustomUrlConfiguration : IEntityTypeConfiguration<CustomUrl>
 {
     public void Configure(EntityTypeBuilder<CustomUrl> builder)
     {
-            builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.UniqueKey).IsRequired().HasMaxLength(6);
+        builder.Property(x => x.UniqueKey).IsRequired().HasMaxLength(6);
 
-            builder.Property(x => x.OriginalURL).IsRequired();
-            builder.Property(x=>x.ExpiryDate).IsRequired();
-            builder.HasMany(x => x.Redirections)
-                .WithOne(x => x.CustomUrl)
-                .HasForeignKey(x => x.CustomUrlId);
-        }
+        builder.Property(x => x.OriginalURL).IsRequired();
+        builder.Property(x => x.ExpiryDate).IsRequired();
+        builder.HasMany(x => x.Redirections)
+            .WithOne(x => x.CustomUrl)
+            .HasForeignKey(x => x.CustomUrlId);
+    }
 }

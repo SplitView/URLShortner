@@ -1,12 +1,10 @@
 ﻿using MassTransit;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RedirectLog.Application.Common.Interface;
 using RedirectLog.Application.Consumers;
 using RedirectLog.Infrastructure.Persistence;
-
 using URLShortner.Common;
 
 namespace RedirectLog.Infrastructure.Extensions;
@@ -15,7 +13,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = configuration.GetConnectionString("DefaultConnection");
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         services.AddDbContext<RedirectLogContext>(options =>
         {

@@ -1,8 +1,9 @@
 ﻿using MongoDB.Driver;
+using Shortner.Domain.Entities;
 
 namespace Shortner.Application.Interface;
 
 public interface IURLShortnerContext
 {
-    IMongoCollection<Domain.Entities.CustomURL> CustomURLs { get; set; }
+    IMongoCollection<CustomURL> CustomURLs { get; set; }
 }

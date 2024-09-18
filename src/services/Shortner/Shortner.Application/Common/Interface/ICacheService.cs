@@ -5,14 +5,14 @@ namespace Shortner.Application.Interface;
 public interface ICacheService
 {
     /// <summary>
-    /// Clears the cache with the key
+    ///     Clears the cache with the key
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
     Task ClearAsync(string key);
 
     /// <summary>
-    /// Fetch the catche of the key.
+    ///     Fetch the catche of the key.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="key"></param>
@@ -20,7 +20,7 @@ public interface ICacheService
     Task<T> GetAsync<T>(string key) where T : class;
 
     /// <summary>
-    /// Sets the cache with given cache
+    ///     Sets the cache with given cache
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="key"></param>

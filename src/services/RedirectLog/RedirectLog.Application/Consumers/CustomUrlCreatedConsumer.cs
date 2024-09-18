@@ -9,6 +9,7 @@ public class CustomUrlCreatedConsumer(IMediator mediator) : IConsumer<CustomUrlC
 {
     public async Task Consume(ConsumeContext<CustomUrlCreatedEvent> context)
     {
-            await mediator.Send(new SaveCustomUrlCommand(context.Message.CustomUrlId, context.Message.OriginalURL, context.Message.UniqueKey, context.Message.ExpiryDate));
-        }
+        await mediator.Send(new SaveCustomUrlCommand(context.Message.CustomUrlId, context.Message.OriginalURL,
+            context.Message.UniqueKey, context.Message.ExpiryDate));
+    }
 }

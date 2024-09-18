@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shortner.Domain.Entities;
+﻿namespace Shortner.Domain.Entities;
 
 public class CustomURL : BaseEntity
 {

@@ -6,8 +6,8 @@ namespace RedirectLog.Application.RedirectLog;
 
 public class SaveRedirectLogCommand(string customUrlId, DateTime timeStamp) : IRequest<Unit>
 {
-    public string CustomUrlId { get; private set; } = customUrlId;
-    public DateTime TimeStamp { get; private set; } = timeStamp;
+    public string CustomUrlId { get; } = customUrlId;
+    public DateTime TimeStamp { get; } = timeStamp;
 }
 
 public class SaveRedirectLogCommandHandler(IRedirectLogContext redirectLogContext)
@@ -15,16 +15,16 @@ public class SaveRedirectLogCommandHandler(IRedirectLogContext redirectLogContex
 {
     public async Task<Unit> Handle(SaveRedirectLogCommand request, CancellationToken cancellationToken)
     {
-            var redirection = new Redirection
-            {
-                Id = Guid.NewGuid().ToString(),
-                CustomUrlId = request.CustomUrlId,
-                TimeStamp = request.TimeStamp
-            };
+        var redirection = new Redirection
+        {
+            Id = Guid.NewGuid().ToString(),
+            CustomUrlId = request.CustomUrlId,
+            TimeStamp = request.TimeStamp
+        };
 
-            await redirectLogContext.Redirections.AddAsync(redirection, cancellationToken: cancellationToken);
-            await redirectLogContext.SaveChangesAsync(cancellationToken);
+        await redirectLogContext.Redirections.AddAsync(redirection, cancellationToken);
+        await redirectLogContext.SaveChangesAsync(cancellationToken);
 
-            return Unit.Value;
-        }
+        return Unit.Value;
+    }
 }

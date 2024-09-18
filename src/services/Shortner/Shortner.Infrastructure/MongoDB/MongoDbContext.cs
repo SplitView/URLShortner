@@ -13,20 +13,20 @@ public class MongoDbContext : IURLShortnerContext
 
     public MongoDbContext(IOptions<MongoSettings> options)
     {
-            var settings = MongoClientSettings.FromConnectionString(options.Value.ConnectionString);
+        var settings = MongoClientSettings.FromConnectionString(options.Value.ConnectionString);
 
-            settings.ClusterConfigurator = builder => builder.Subscribe(new MongoDbEventSubscriber());
+        settings.ClusterConfigurator = builder => builder.Subscribe(new MongoDbEventSubscriber());
 
-            _mongoClient = new MongoClient(settings);
-            _mongoDatabase = _mongoClient.GetDatabase(options.Value.DatabaseName);
+        _mongoClient = new MongoClient(settings);
+        _mongoDatabase = _mongoClient.GetDatabase(options.Value.DatabaseName);
 
-            CustomURLs = GetMongoCollection<CustomURL>(options.Value.CustomURLCollectionName);
-        }
+        CustomURLs = GetMongoCollection<CustomURL>(options.Value.CustomURLCollectionName);
+    }
 
     public IMongoCollection<CustomURL> CustomURLs { get; set; }
 
     private IMongoCollection<T> GetMongoCollection<T>(string collectionName)
     {
-            return _mongoDatabase.GetCollection<T>(collectionName);
-        }
+        return _mongoDatabase.GetCollection<T>(collectionName);
+    }
 }
