@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 builder.Host.UseSerilog(SeriLogger.Configure);
-builder.Host.UseAllElasticApm();
+//builder.Host.UseAllElasticApm();
 
 // Add services to the container.
 
@@ -36,7 +36,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddApplication(builder.Configuration);
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 

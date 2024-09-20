@@ -20,7 +20,7 @@ public static class DependencyInjection
     public static IHostApplicationBuilder AddInfrastructure(this IHostApplicationBuilder builder, IConfiguration configuration)
     {
         //mongo
-        builder.AddMongoDBClient("MongoConnection");
+        builder.AddMongoDBClient("mongodb");
         builder.Services.AddSingleton<IURLShortnerContext, MongoDbContext>();
         builder.Services.Configure<MongoSettings>(setting => { configuration.GetSection("MongoSettings").Bind(setting); });
 
@@ -29,15 +29,14 @@ public static class DependencyInjection
         builder.Services.AddSingleton<ICacheService, RedisCacheService>();
 
         //rabbitmq
-        var rabbitMqConnectionString = builder.Configuration.GetConnectionString("rabbitmq");
+        var rabbitMqConnectionString = builder.Configuration.GetConnectionString("RabbitMq");
         if (!string.IsNullOrEmpty(rabbitMqConnectionString))
         {
             builder.Services.AddMassTransit(config =>
             {
                 config.UsingRabbitMq((ctx, cfg) =>
                 {
-                    cfg.Host(new Uri(rabbitMqConnectionString), c => { });
-                    cfg.ConfigureEndpoints(ctx);
+                    cfg.Host(new Uri(rabbitMqConnectionString));
                 });
             });
         }

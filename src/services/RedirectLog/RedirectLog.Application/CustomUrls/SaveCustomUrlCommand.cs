@@ -18,16 +18,24 @@ public class SaveCustomUrlCommandHandler(IRedirectLogContext redirectLogContext)
 {
     public async Task<Unit> Handle(SaveCustomUrlCommand request, CancellationToken cancellationToken)
     {
-        var customUrl = new CustomUrl
+        try
         {
-            ExpiryDate = request.ExpiryDate,
-            Id = request.CustomUrlId,
-            OriginalURL = request.OriginalURL,
-            UniqueKey = request.UniqueKey
-        };
+            var customUrl = new CustomUrl
+            {
+                ExpiryDate = request.ExpiryDate,
+                Id = request.CustomUrlId,
+                OriginalURL = request.OriginalURL,
+                UniqueKey = request.UniqueKey
+            };
 
-        await redirectLogContext.CustomUrls.AddAsync(customUrl, cancellationToken);
-        await redirectLogContext.SaveChangesAsync(cancellationToken);
-        return Unit.Value;
+            await redirectLogContext.CustomUrls.AddAsync(customUrl, cancellationToken);
+            await redirectLogContext.SaveChangesAsync(cancellationToken);
+            return Unit.Value;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

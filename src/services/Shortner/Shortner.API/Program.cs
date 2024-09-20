@@ -1,13 +1,21 @@
 using System.Reflection;
-using Elastic.Apm.NetCoreAll;
-using Microsoft.AspNetCore.Mvc;
+
+using Asp.Versioning;
+
 using Microsoft.OpenApi.Models;
+
 using Serilog;
+
 using Shortner.Application.Extensions;
 using Shortner.Infrastructure.Extensions;
+
 using URLShortner.Common.Infrastructure.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(x => x.AddPolicy(name: "Default", p =>
+{
+    p.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+}));
 
 builder.AddServiceDefaults();
 //builder.Host.UseSerilog(SeriLogger.Configure);
@@ -36,11 +44,10 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddApplication(builder.Configuration);
 builder.AddInfrastructure(builder.Configuration);
-builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
-
+app.UseCors("Default");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
